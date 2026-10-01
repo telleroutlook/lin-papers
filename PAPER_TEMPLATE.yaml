@@ -1,0 +1,53 @@
+# ==============================================================================
+# 论文配置模板 (Paper Specification Template)
+# 文件位置: data/papers.yaml
+#
+# 您可直接复制以下结构添加到 data/papers.yaml 中，网站将自动解析并实时渲染。
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 【必须字段 / REQUIRED FIELDS】（缺少以下任一字段将影响卡片完整展示）
+# ------------------------------------------------------------------------------
+- id: "unique-paper-slug-2026"     # 唯一标识符（建议格式：作者-年份-关键词）
+  title: "Your Paper Title Here"    # 论文标题
+  topic: "Reasoning & Search"      # 主题分类（用于分类筛选标签，例如：Reasoning & Search, Inference & Systems, Alignment & Safety）
+  doi: "10.48550/arXiv.2501.09871"  # DOI 编号或完整 DOI 链接（如: "https://doi.org/10.1000/182"）
+  abstract: |                      # 论文摘要（支持标准多行 Markdown 语法、加粗、数学公式说明与分段列表）
+    ### Background & Problem
+    Autoregressive long-horizon exploration suffers from quadratic context growth.
+
+    ### Methodology
+    We formulate tree-of-thought exploration as gradient-guided latent trajectories.
+
+    ### Key Findings
+    Demonstrates a 4.2x compute reduction while achieving 93.4% accuracy on MATH-500.
+
+# ------------------------------------------------------------------------------
+# 【可选字段 / OPTIONAL FIELDS】（可根据需要选填，无相关信息可直接省略）
+# ------------------------------------------------------------------------------
+  series: "LNCS Volume 14200"      # 系列 / 专刊 / 论文集 (如: "Lecture Notes in Computer Science", "Frontiers in AI Series")
+  authors:                         # 作者列表
+    - "Alistair Vance"
+    - "Elena Rostova"
+    - "Marcus Lin"
+  venue: "NeurIPS 2025 (Oral)"     # 发表期刊或学术会议名称
+  year: 2025                       # 发表年份（默认排序与按年分组依据）
+  keywords:                        # 关键词索引标签（点击可直接联动过滤）
+    - "Test-Time Compute"
+    - "Graph Search"
+    - "Latent Space"
+  tldr: "A concise 1-sentence executive takeaway for rapid reader skimming." # 一句话核心结论
+  pdfUrl: "https://arxiv.org/pdf/2501.09871"       # PDF 全文下载或预览链接
+  codeUrl: "https://github.com/vance-lab/repo"      # 开源代码仓库 (GitHub 等)
+  demoUrl: "https://demo.example.edu"               # 在线演示或项目主页链接
+  slidesUrl: "https://slides.example.edu/talk.pdf"  # 会议演讲 Slides
+  citations: 218                                    # 被引用次数
+  highlighted: true                                 # 是否作为特别推荐论文 (★ Featured)
+  award: "Oral Presentation (Top 1.2%)"             # 奖项或学术荣誉
+  bibtex: |                                         # 自定义 BibTeX 引用内容（若省略，系统将自动生成规范 BibTeX）
+    @inproceedings{vance2025latent,
+      title={Your Paper Title Here},
+      author={Vance, Alistair and Rostova, Elena and Lin, Marcus},
+      booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+      year={2025}
+    }

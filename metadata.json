@@ -1,0 +1,6 @@
+{
+  "name": "ScholarWorks - Academic Publications Portfolio",
+  "description": "An editorial personal publications archive and research portfolio featuring structured paper cards, category filtering, BibTeX citations, and real-time Markdown/YAML administration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

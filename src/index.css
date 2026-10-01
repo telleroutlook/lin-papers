@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+:root, .theme-paper {
+  --canvas-bg: #faf9f6;
+  --canvas-subtle: #f3efe6;
+  --surface-bg: #ffffff;
+  --surface-subtle: #f5f3ec;
+  --surface-hover: #ece8de;
+  --border-subtle: #e6e2d8;
+  --border-strong: #c8c2b4;
+  --text-title: #0f172a;       /* Deep near-black - 16:1 contrast against canvas */
+  --text-body: #1e293b;        /* High-contrast dark charcoal - 12:1 contrast */
+  --text-muted: #57534e;       /* Readable stone gray - 6:1 contrast */
+  --text-faint: #78716c;
+  --primary-accent: #1c1917;
+  --primary-accent-text: #ffffff;
+  --badge-bg: #f2eee4;
+  --badge-text: #1c1917;
+}
+
+.theme-sepia {
+  --canvas-bg: #f4efea;
+  --canvas-subtle: #eae3d7;
+  --surface-bg: #fcf9f5;
+  --surface-subtle: #ebe3d5;
+  --surface-hover: #e2d8c6;
+  --border-subtle: #ddd3c2;
+  --border-strong: #c2b59f;
+  --text-title: #1a120b;       /* Deep espresso - 15:1 contrast against sepia */
+  --text-body: #2e2218;        /* Dark coffee - 11:1 contrast */
+  --text-muted: #5c4e40;       /* Readable sepia gray - 5.5:1 contrast */
+  --text-faint: #7a6a59;
+  --primary-accent: #2c1e13;
+  --primary-accent-text: #ffffff;
+  --badge-bg: #e8dfcf;
+  --badge-text: #261a10;
+}
+
+.theme-dark {
+  --canvas-bg: #0c0b0a;
+  --canvas-subtle: #161514;
+  --surface-bg: #181716;
+  --surface-subtle: #242220;
+  --surface-hover: #2e2b28;
+  --border-subtle: #34312c;
+  --border-strong: #524e47;
+  --text-title: #fcfbf9;       /* Crisp bright ivory white - 17:1 contrast against dark */
+  --text-body: #e5e1d8;        /* Clear high-legibility light stone - 13:1 contrast */
+  --text-muted: #a8a296;       /* Clean readable muted tone - 6.5:1 contrast */
+  --text-faint: #7d786e;
+  --primary-accent: #f5f5f4;
+  --primary-accent-text: #0c0b0a;
+  --badge-bg: #272421;
+  --badge-text: #f5f4f0;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--canvas-bg);
+    color: var(--text-body);
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-editorial {
+    font-family: var(--font-serif);
+    color: var(--text-title);
+  }
+
+  p, li, span, div {
+    /* Ensure no text defaults to faint grey */
+  }
+}
+
+/* Global Semantic Utility Classes */
+.bg-canvas { background-color: var(--canvas-bg); }
+.bg-canvas-subtle { background-color: var(--canvas-subtle); }
+.bg-surface { background-color: var(--surface-bg); }
+.bg-surface-subtle { background-color: var(--surface-subtle); }
+.bg-surface-hover:hover { background-color: var(--surface-hover); }
+
+.border-theme { border-color: var(--border-subtle); }
+.border-theme-strong { border-color: var(--border-strong); }
+
+.text-title { color: var(--text-title) !important; }
+.text-body-high { color: var(--text-body) !important; }
+.text-muted-readable { color: var(--text-muted) !important; }
+.text-faint-readable { color: var(--text-faint) !important; }
+
+/* Interactive high-contrast focus rings */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--text-title);
+  outline-offset: 2px;
+}
+
+/* KaTeX Formula Enhancements & Theme Adaptability */
+.katex {
+  color: inherit;
+  font-size: 1.05em;
+}
+
+.katex-display {
+  margin: 1em 0 !important;
+  padding: 0.25em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+}
+
+.katex-display > .katex {
+  color: var(--text-title);
+}

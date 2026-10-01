@@ -1,0 +1,289 @@
+import { AuthorProfile, Paper } from '../types/paper';
+
+export const INITIAL_AUTHOR: AuthorProfile = {
+  name: 'Dr. Alistair Vance',
+  title: 'Principal Research Scientist & Lab Director',
+  affiliation: 'Stanford AI Lab · Institute for Scalable Reasoning',
+  bio: 'Investigating test-time compute, non-autoregressive latent search, and provable alignment guarantees for frontier cognitive models. Former Postdoctoral Fellow at Cambridge Machine Learning Group.',
+  email: 'a.vance@cs.stanford.edu',
+  location: 'Stanford, California, USA',
+  scholarUrl: 'https://scholar.google.com/citations?user=sample_vance',
+  orcid: '0000-0002-8419-7201',
+  githubUrl: 'https://github.com/vance-lab',
+  arxivUrl: 'https://arxiv.org/a/vance_a_1.html',
+  twitterUrl: 'https://x.com/alistair_vance',
+  cvUrl: '#',
+  totalCitations: 4820,
+  hIndex: 26,
+  i10Index: 38,
+  researchInterests: [
+    'Test-Time Compute Scaling',
+    'Latent Reasoning Graphs',
+    'Non-Autoregressive Generation',
+    'Formal Verification & Safety',
+    'Hardware-Aware Sparse Attention'
+  ]
+};
+
+export const INITIAL_PAPERS: Paper[] = [
+  {
+    id: 'latent-reasoning-graphs-2026',
+    // 7 Required Fields:
+    title: 'Latent Reasoning Graphs: Scalable Self-Evolving Planning for Deep Thinking Models',
+    authors: ['Alistair Vance', 'Elena Rostova', 'Julian K. Thorne', 'Marcus Lin'],
+    publishedDate: '2025-10-18',
+    abstract: 'Autoregressive token-level Chain-of-Thought (CoT) exploration incurs quadratic context degradation and accumulates unrecoverable semantic drifting during long-horizon mathematical proofs. We formulate tree-of-thought exploration as gradient-guided trajectories within low-entropy latent manifold representations, bypassing token generation until branch confirmation.',
+    keywords: ['Test-Time Compute', 'Graph Search', 'Latent Space', 'Theorem Proving'],
+    doi: '10.48550/arXiv.2501.09871',
+    content: `## 1. Problem Formulation & Latent Energy Dynamics
+
+Standard autoregressive reasoning samples sequences $\\mathbf{x} = (x_1, \\dots, x_T)$ from a token distribution $p_\\theta(\\mathbf{x}) = \\prod_{t=1}^T p_\\theta(x_t \\mid x_{<t})$. Under long deduction horizons, errors compound exponentially. Instead, we project intermediate logic states into a smooth latent manifold $\\mathcal{Z} \\subset \\mathbb{R}^d$.
+
+We define a differentiable planning energy functional $\\mathcal{E}_\\phi(\\mathbf{z})$ over latent paths $\\gamma: [0, 1] \\to \\mathcal{Z}$ with boundary constraints $\\gamma(0) = \\mathbf{z}_0$ and $\\gamma(1) = \\mathbf{z}^*$:
+
+$$\\min_{\\theta} \\mathbb{E}_{\\mathbf{z} \\sim \\mathcal{Z}} \\left[ \\mathcal{L}_{\\text{planning}}(\\mathbf{z}_t, \\mathbf{z}^*) + \\lambda \\sum_{k=1}^K \\nabla_{\\mathbf{z}} \\mathcal{E}_\\phi(\\mathbf{z}_k) \\right]$$
+
+The free energy of any reasoning node $\\mathbf{z}$ is evaluated via Hamiltonian marginalization:
+
+$$\\mathcal{F}(\\mathbf{z}) = -\\frac{1}{\\beta} \\log \\int_{\\Omega} \\exp \\left( -\\beta \\left[ \\frac{1}{2}\\|\\mathbf{z} - \\mathbf{g}(\\mathbf{x})\\|^2 + \\mathcal{V}(\\mathbf{x}) \\right] \\right) d\\mathbf{x} + \\gamma \\mathcal{R}(\\mathbf{z})$$
+
+## 2. Hamiltonian Gradient Trajectories & Branch Pruning
+
+To explore diverse deductive routes without combinatorial explosion, test-time exploration proceeds via stochastic Langevin dynamics in latent velocity space $(\\mathbf{z}, \\mathbf{v})$:
+
+$$\\begin{cases}
+d\\mathbf{z}_t = \\mathbf{v}_t dt \\\\
+d\\mathbf{v}_t = -\\left[ \\nabla_{\\mathbf{z}} \\mathcal{E}_\\phi(\\mathbf{z}_t) + \\gamma \\mathbf{v}_t \\right] dt + \\sqrt{2 \\gamma \\beta^{-1}} d\\mathbf{W}_t
+\\end{cases}$$
+
+Here $\\mathbf{W}_t$ denotes a standard Wiener process and $\\beta^{-1}$ corresponds to the temperature schedule. 
+
+### Convergence Guarantee
+By the Poincaré inequality on compact manifolds, the distribution of latent candidate paths $q_t(\\mathbf{z})$ converges to the Gibbs equilibrium $p_\\infty(\\mathbf{z}) \\propto e^{-\\beta \\mathcal{E}(\\mathbf{z})}$ at an exponential rate:
+
+$$\\mathcal{D}_{\\text{KL}}\\left( q_t \\, \\| \\, p_\\infty \\right) \\le \\mathcal{D}_{\\text{KL}}\\left( q_0 \\, \\| \\, p_\\infty \\right) e^{-2 \\alpha t}, \\quad \\alpha = \\inf_{\\mathbf{z}} \\lambda_{\\min}\\left( \\nabla^2 \\mathcal{E}_\\phi(\\mathbf{z}) \\right)$$
+
+## 3. Empirical Verification
+Our continuous latent graph formulation outperforms standard beam search and Monte Carlo Tree Search across 500 Olympiad-level IMO benchmark problems while consuming **76% fewer tokens**.`,
+
+    // Optional Fields:
+    venue: 'NeurIPS 2025 (Oral Presentation)',
+    year: 2025,
+    category: 'Reasoning & Search',
+    tldr: 'Demonstrates that discrete search directly in continuous latent spaces reduces test-time computation overhead by 4.2× while exceeding token-level chain-of-thought on OlympiadBench and ARC Prize.',
+    award: 'Oral Presentation (Top 1.2%)',
+    citations: 218,
+    highlighted: true,
+    arxivId: '2501.09871',
+    pdfUrl: 'https://arxiv.org/pdf/2501.09871',
+    codeUrl: 'https://github.com/vance-lab/latent-reasoning-graphs',
+    demoUrl: 'https://lrg-demo.stanford.edu',
+  },
+  {
+    id: 'sparse-attention-sublinear-2025',
+    // 7 Required Fields:
+    title: 'Sublinear Speculative Attention for Multi-Million Token Long-Context Transformer Inference',
+    authors: ['Alistair Vance', 'David Chen', 'Siddharth Nair', 'Kavita Patel'],
+    publishedDate: '2025-05-12',
+    abstract: 'Transformer self-attention incurs quadratic complexity with context length N. We design a hardware-aware speculative attention mechanism with sublinear memory consumption. By leveraging dynamic cluster centroids and blockwise Taylor approximations, we compress KV caches by 85% with zero degradation in retrieval accuracy.',
+    keywords: ['Sparse Attention', 'KV Cache', 'Inference Optimization', 'Kernel Design'],
+    doi: '10.48550/arXiv.2505.04128',
+    content: `## 1. Architectural Formulation & Kernel Decomposition
+
+Full scaled dot-product attention computes:
+
+$$\\mathbf{A} = \\text{Softmax}\\left( \\frac{\\mathbf{Q} \\mathbf{K}^\\top}{\\sqrt{d_k}} + \\mathbf{M} \\right) \\mathbf{V}$$
+
+For sequence length $N = 2 \\times 10^6$, storing the key-value cache $\\mathbf{K}, \\mathbf{V} \\in \\mathbb{R}^{N \\times d}$ requires over $120\\text{ GB}$ of high-bandwidth memory (HBM3e). We replace the dense attention matrix with a low-rank speculative kernel:
+
+$$\\mathbf{A}_{i,j} = \\frac{\\exp\\left( \\frac{\\mathbf{q}_i^\\top \\mathbf{k}_j}{\\sqrt{d_k}} - \\Omega_{i,j} \\right)}{\\sum_{l=1}^N \\exp\\left( \\frac{\\mathbf{q}_i^\\top \\mathbf{k}_l}{\\sqrt{d_k}} - \\Omega_{i,l} \\right)}, \\quad \\Omega_{i,j} = \\begin{cases} 0 & \\text{if } j \\in \\mathcal{S}_i \\\\ \\infty & \\text{otherwise} \\end{cases}$$
+
+Where the active sparsity set $\\mathcal{S}_i$ is dynamically pruned via hyper-plane locality hashing:
+
+$$\\mathcal{S}_i = \\left\\{ j : \\left\\langle h(\\mathbf{q}_i), h(\\mathbf{k}_j) \\right\\rangle \\ge \\tau_i \\right\\} \\cup \\left\\{ i-w, \\dots, i \\right\\}$$
+
+## 2. Theoretical Bound on Attention Error
+
+Let $\\hat{\\mathbf{A}}$ be our sparse approximation. We prove an $L_1$ approximation bound with respect to full attention $\\mathbf{A}$:
+
+$$\\|\\mathbf{A} - \\hat{\\mathbf{A}}\\|_{1} \\le 2 \\sum_{j \\notin \\mathcal{S}_i} \\frac{\\exp\\left(\\frac{\\mathbf{q}_i^\\top \\mathbf{k}_j}{\\sqrt{d_k}}\\right)}{\\sum_{l=1}^N \\exp\\left(\\frac{\\mathbf{q}_i^\\top \\mathbf{k}_l}{\\sqrt{d_k}}\\right)} \\le 2 N \\cdot \\exp\\left( -\\frac{\\Delta^2}{2 \\sigma^2} \\right)$$
+
+Where $\\Delta = \\min_{j \\in \\mathcal{S}_i} \\mathbf{q}_i^\\top \\mathbf{k}_j - \\max_{l \\notin \\mathcal{S}_i} \\mathbf{q}_i^\\top \\mathbf{k}_l$.
+
+## 3. FlashDecoding Kernel Implementation
+Our custom CUDA kernel runs directly inside SRAM without spilling intermediate activations to DRAM, delivering **3.4× higher throughput** at $4\\text{M}$ context length on 8× NVIDIA H100 SXM5 nodes.`,
+
+    // Optional Fields:
+    venue: 'ICLR 2025 (Spotlight)',
+    year: 2025,
+    category: 'Inference & Systems',
+    tldr: 'Achieves 85% KV-cache memory reduction across 4M token context windows with provable lossless precision using custom FlashDecoding kernels.',
+    citations: 184,
+    highlighted: true,
+    arxivId: '2505.04128',
+    pdfUrl: 'https://arxiv.org/pdf/2505.04128',
+    codeUrl: 'https://github.com/vance-lab/sublinear-sparse-attention',
+  },
+  {
+    id: 'formal-safety-barriers-2025',
+    // 7 Required Fields:
+    title: 'Provable Invariants in Agentic AI: Discrete Control Barrier Certificates for Code Execution',
+    authors: ['Alistair Vance', 'Sophia L. Wei', 'Henrik Lindqvist'],
+    publishedDate: '2025-02-14',
+    abstract: 'Autonomous tool-use agents frequently violate privilege boundaries during iterative script invocation. We introduce discrete Control Barrier Certificates that constrain agent action proposals to provably forward-invariant safe sub-manifolds, guaranteeing zero privilege escalation even under adversarially injected instructions.',
+    keywords: ['Formal Verification', 'Safety Guarantees', 'Control Barrier Functions', 'AI Safety'],
+    doi: '10.48550/arXiv.2502.11044',
+    content: `## 1. Safety Envelope & Control Barrier Formulations
+
+Let $\\mathcal{X} \\subset \\mathbb{R}^n$ represent the execution state space of an autonomous system and $\\mathcal{U} \\subset \\mathbb{R}^m$ be the tool action space. A safe set $\\mathcal{C}$ is defined as the super-level set of a continuously differentiable barrier function $B: \\mathcal{X} \\to \\mathbb{R}$:
+
+$$\\mathcal{C} = \\left\\{ \\mathbf{x} \\in \\mathcal{X} : B(\\mathbf{x}) \\ge 0 \\right\\}, \\quad \\partial \\mathcal{C} = \\left\\{ \\mathbf{x} \\in \\mathcal{X} : B(\\mathbf{x}) = 0 \\right\\}$$
+
+The system dynamics obey discrete state transitions $\\mathbf{x}_{k+1} = f(\\mathbf{x}_k, \\mathbf{u}_k)$. The action $\\mathbf{u}_k$ emitted by the language policy $\\pi_\\theta$ must satisfy the discrete Control Barrier condition:
+
+$$\\Delta B(\\mathbf{x}_k, \\mathbf{u}_k) = B(f(\\mathbf{x}_k, \\mathbf{u}_k)) - B(\\mathbf{x}_k) \\ge -\\alpha B(\\mathbf{x}_k), \\quad \\alpha \\in (0, 1]$$
+
+## 2. Quadratic Programming Projection Filter
+
+When the raw policy action $\\mathbf{u}_0 \\sim \\pi_\\theta(\\cdot \\mid \\mathbf{x})$ attempts an unsafe transition, we project it onto the safe half-space via real-time quadratic programming:
+
+$$\\begin{aligned}
+\\mathbf{u}^* = \\arg\\min_{\\mathbf{u} \\in \\mathcal{U}} \\quad & \\frac{1}{2} \\|\\mathbf{u} - \\mathbf{u}_0\\|^2 \\\\
+\\text{s.t.} \\quad & \\nabla B(\\mathbf{x})^\\top f(\\mathbf{x}, \\mathbf{u}) + \\alpha B(\\mathbf{x}) \\ge 0 \\\\
+& \\mathbf{A}_{\\text{audit}} \\mathbf{u} \\le \\mathbf{b}_{\\text{sandbox}}
+\\end{aligned}$$
+
+### Invariance Theorem
+If $\\mathbf{x}_0 \\in \\mathcal{C}$ and $\\mathbf{u}_k = \\mathbf{u}^*$ for all $k \\ge 0$, then:
+
+$$\\mathbb{P}\\left( \\exists k \\ge 0 : \\mathbf{x}_k \\in \\mathcal{X}_{\\text{unsafe}} \\right) = 0$$
+
+The system remains invariant within $\\mathcal{C}$ for all future time steps under any arbitrary instruction input.`,
+
+    // Optional Fields:
+    venue: 'ICML 2025 (Selected Publication)',
+    year: 2025,
+    category: 'Alignment & Safety',
+    tldr: 'Guarantees zero-privilege-escalation in autonomous terminal tool agents using quadratic programming projection onto control barrier submanifolds.',
+    citations: 92,
+    highlighted: true,
+    arxivId: '2502.11044',
+    pdfUrl: 'https://arxiv.org/pdf/2502.11044',
+    codeUrl: 'https://github.com/vance-lab/discrete-barrier-invariants',
+  },
+  {
+    id: 'neurosymbolic-hamilton-world-models-2024',
+    // 7 Required Fields:
+    title: 'Hamiltonian Differentiable World Models: Enforcing Conservation Laws in Video Rollouts',
+    authors: ['Alistair Vance', 'Kenji Takahashi', 'Elena Rostova'],
+    publishedDate: '2024-06-20',
+    abstract: 'Generative video models suffer from perceptual drift, hallucinations, and violations of basic physical laws during extended multi-second rollouts. We integrate Hamiltonian energy equations into the latent bottleneck of spatio-temporal diffusion models to enforce geometric phase space volume preservation.',
+    keywords: ['World Models', 'Hamiltonian Mechanics', 'Diffusion Models', 'Physical AI'],
+    doi: '10.1109/CVPR.2024.18921',
+    content: `## 1. Hamiltonian Symplectic Manifold Structure
+
+Classical mechanics describes physical states in phase space $(\\mathbf{q}, \\mathbf{p}) \\in \\mathbb{R}^{2d}$ where $\\mathbf{q}$ denotes generalized coordinates and $\\mathbf{p}$ denotes conjugate momenta. The total energy Hamiltonian $\\mathcal{H}(\\mathbf{q}, \\mathbf{p})$ satisfies Hamilton's canonical equations:
+
+$$\\frac{d\\mathbf{q}}{dt} = \\frac{\\partial \\mathcal{H}}{\\partial \\mathbf{p}}, \\quad \\frac{d\\mathbf{p}}{dt} = -\\frac{\\partial \\mathcal{H}}{\\partial \\mathbf{q}}$$
+
+By Liouville's theorem, phase space volume is strictly conserved along the Hamiltonian flow:
+
+$$\\nabla \\cdot \\mathbf{v}_{\\mathcal{H}} = \\sum_{i=1}^d \\left( \\frac{\\partial}{\\partial q_i} \\frac{\\partial \\mathcal{H}}{\\partial p_i} - \\frac{\\partial}{\\partial p_i} \\frac{\\partial \\mathcal{H}}{\\partial q_i} \\right) = 0$$
+
+## 2. Symplectic Integrator Diffusion Bottleneck
+
+To integrate the learned Hamiltonian $\\mathcal{H}_\\theta$ within a deep network, we employ a symplectic Verlet leapfrog integrator:
+
+$$\\begin{aligned}
+\\mathbf{p}_{t + \\frac{\\Delta t}{2}} &= \\mathbf{p}_t - \\frac{\\Delta t}{2} \\nabla_{\\mathbf{q}} \\mathcal{H}_\\theta\\left( \\mathbf{q}_t, \\mathbf{p}_{t + \\frac{\\Delta t}{2}} \\right) \\\\
+\\mathbf{q}_{t + \\Delta t} &= \\mathbf{q}_t + \\frac{\\Delta t}{2} \\left[ \\nabla_{\\mathbf{p}} \\mathcal{H}_\\theta\\left( \\mathbf{q}_t, \\mathbf{p}_{t + \\frac{\\Delta t}{2}} \\right) + \\nabla_{\\mathbf{p}} \\mathcal{H}_\\theta\\left( \\mathbf{q}_{t + \\Delta t}, \\mathbf{p}_{t + \\frac{\\Delta t}{2}} \\right) \\right] \\\\
+\\mathbf{p}_{t + \\Delta t} &= \\mathbf{p}_{t + \\frac{\\Delta t}{2}} - \\frac{\\Delta t}{2} \\nabla_{\\mathbf{q}} \\mathcal{H}_\\theta\\left( \\mathbf{q}_{t + \\Delta t}, \\mathbf{p}_{t + \\frac{\\Delta t}{2}} \\right)
+\\end{aligned}$$
+
+This formulation guarantees that energy drift is strictly bounded over thousands of time steps:
+
+$$\\left| \\mathcal{H}(\\mathbf{q}_T, \\mathbf{p}_T) - \\mathcal{H}(\\mathbf{q}_0, \\mathbf{p}_0) \\right| = \\mathcal{O}(\\Delta t^2)$$`,
+
+    // Optional Fields:
+    venue: 'CVPR 2024 (Conference Publication)',
+    year: 2024,
+    category: 'Multimodal & World Models',
+    tldr: 'Guarantees exact conservation of momentum and energy across 1,200 continuous simulated video frames using symplectic latent neural integrators.',
+    citations: 312,
+    award: 'Best Paper Finalist',
+    arxivId: '2403.09112',
+    pdfUrl: 'https://arxiv.org/pdf/2403.09112',
+  },
+  {
+    id: 'speculative-non-autoregressive-diffusion-2024',
+    // 7 Required Fields:
+    title: 'Score-Based Speculative Diffusion: Eliminating Sequential Bottlenecks in Discrete Planning',
+    authors: ['Alistair Vance', 'Marcus Lin', 'David Chen'],
+    publishedDate: '2024-04-10',
+    abstract: 'Autoregressive rollouts in deep reinforcement learning suffer from high step latencies during inference. We introduce score-based continuous diffusion over token belief states, generating complete multi-step trajectory plans in 4 parallel sampling steps with superior coverage of multimodal rewards.',
+    keywords: ['Diffusion Models', 'Non-Autoregressive', 'Trajectory Optimization', 'Optimal Control'],
+    doi: '10.48550/arXiv.2404.08832',
+    content: `## 1. Reverse-Time Stochastic Differential Equations
+
+We formulate plan generation as the reversal of an Itô diffusion process that gradually perturbs candidate action sequences $\\mathbf{x} \\in \\mathbb{R}^{H \\times d}$ toward standard Gaussian noise:
+
+$$d\\mathbf{x}_t = \\mathbf{f}(\\mathbf{x}_t, t) dt + g(t) d\\mathbf{w}_t$$
+
+The corresponding reverse-time SDE satisfies:
+
+$$d\\mathbf{x}_t = \\left[ \\mathbf{f}(\\mathbf{x}_t, t) - g(t)^2 \\nabla_{\\mathbf{x}} \\log p_t(\\mathbf{x}_t) \\right] dt + g(t) d\\bar{\\mathbf{w}}_t$$
+
+We approximate the score function $s_\\theta(\\mathbf{x}_t, t) \\approx \\nabla_{\\mathbf{x}} \\log p_t(\\mathbf{x}_t)$ using a denoiser network trained with denoising score matching:
+
+$$\\mathcal{L}_{\\text{DSM}}(\\theta) = \\mathbb{E}_{t, \\mathbf{x}_0, \\boldsymbol{\\epsilon}} \\left[ \\left\\| s_\\theta\\left( \\alpha_t \\mathbf{x}_0 + \\sigma_t \\boldsymbol{\\epsilon}, t \\right) + \\frac{\\boldsymbol{\\epsilon}}{\\sigma_t} \\right\\|^2 \\right]$$
+
+## 2. Fast Predictor-Corrector Sampling
+By combining an exponential integrator predictor with a single-step Hamiltonian Monte Carlo corrector, we reduce the required reverse iterations from $100$ steps down to **4 steps**, achieving **$18\\times$ speedup** over autoregressive planners.`,
+
+    // Optional Fields:
+    venue: 'NeurIPS 2024 (Spotlight Paper)',
+    year: 2024,
+    category: 'Reasoning & Search',
+    tldr: 'Reduces trajectory planning latency by 18× by substituting token-by-token generation with 4-step score-based reverse diffusion.',
+    citations: 147,
+    arxivId: '2404.08832',
+    codeUrl: 'https://github.com/vance-lab/speculative-diffusion-planner',
+  },
+  {
+    id: 'preference-optimization-invariants-2023',
+    // 7 Required Fields:
+    title: 'Closed-Form Invariant Solutions for Direct Preference Optimization in Foundation Models',
+    authors: ['Alistair Vance', 'Julian K. Thorne', 'Sophia L. Wei'],
+    publishedDate: '2023-11-05',
+    abstract: 'Reinforcement Learning from Human Feedback (RLHF) via PPO is notoriously unstable. Direct Preference Optimization (DPO) derives an implicit reward, but lacks monotonic alignment guarantees under out-of-distribution shifts. We prove exact closed-form boundary invariants that eliminate policy collapse.',
+    keywords: ['Preference Optimization', 'RLHF', 'Implicit Rewards', 'Alignment'],
+    doi: '10.48550/arXiv.2311.02984',
+    content: `## 1. Bradley-Terry Implicit Formulation
+
+Given a reference policy $\\pi_{\\text{ref}}$, the optimal policy $\\pi^*$ under a general reward function $r(x, y)$ subject to KL regularization is given by:
+
+$$\\pi^*(y \\mid x) = \\frac{\\pi_{\\text{ref}}(y \\mid x) \\exp\\left( \\frac{1}{\\beta} r(x, y) \\right)}{\\mathcal{Z}(x)}, \\quad \\mathcal{Z}(x) = \\sum_{y'} \\pi_{\\text{ref}}(y' \\mid x) \\exp\\left( \\frac{1}{\\beta} r(x, y') \\right)$$
+
+Solving for the implicit reward $r(x, y)$ yields the exact algebraic identity:
+
+$$r(x, y) = \\beta \\log \\frac{\\pi^*(y \\mid x)}{\\pi_{\\text{ref}}(y \\mid x)} + \\beta \\log \\mathcal{Z}(x)$$
+
+Under the Bradley-Terry preference model $p(y_w \\succ y_l \\mid x) = \\sigma(r(x, y_w) - r(x, y_l))$, the partition function $\\mathcal{Z}(x)$ cancels out identically:
+
+$$\\mathcal{L}_{\\text{DPO}}(\\theta) = -\\mathbb{E}_{(x, y_w, y_l) \\sim \\mathcal{D}} \\left[ \\log \\sigma \\left( \\beta \\log \\frac{\\pi_\\theta(y_w \\mid x)}{\\pi_{\\text{ref}}(y_w \\mid x)} - \\beta \\log \\frac{\\pi_\\theta(y_l \\mid x)}{\\pi_{\\text{ref}}(y_l \\mid x)} \\right) \\right]$$
+
+## 2. Invariant Margin Regularizer
+To prevent probability mass degradation on out-of-distribution prompts, we prove that bounding the variance of log-ratios stabilizes training:
+
+$$\\mathbb{V}_{(x, y) \\sim \\pi_\\theta} \\left[ \\log \\frac{\\pi_\\theta(y \\mid x)}{\\pi_{\\text{ref}}(y \\mid x)} \\right] \\le \\frac{2}{\\beta^2} \\log \\left( 1 + \\|r\\|_\\infty \\right)$$`,
+
+    // Optional Fields:
+    venue: 'NeurIPS 2023 (Poster Presentation)',
+    year: 2023,
+    category: 'Alignment & Safety',
+    tldr: 'Derives exact closed-form invariant bounds for preference optimization that eliminate policy drift and over-optimization in large reasoning models.',
+    citations: 430,
+    arxivId: '2311.02984',
+    pdfUrl: 'https://arxiv.org/pdf/2311.02984',
+  }
+];
